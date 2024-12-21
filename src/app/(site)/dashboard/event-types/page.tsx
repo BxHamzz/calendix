@@ -16,11 +16,15 @@ export default async function EventTypesPage() {
         <DashboardNav />
       <div className="mt-4 border border-b-0 rounded-xl overflow-hidden mb-4">
         {eventTypes.map(et => (
-          <Link
-            className="block p-2 border-b"
-            href={'/dashboard/event-types/edit/'+et.id}>
+          <div
+            className="block p-2 border-b">
+            <Link href={'/dashboard/event-types/edit/'+et.id}>
             {et.title}
             </Link>
+            <span className="text-gray-400 ml-4 text-sm">
+               {process.env.NEXT_PUBLIC_URL}/username/{et.uri}
+            </span>
+            </div>
         ))}
       </div>
         </div>

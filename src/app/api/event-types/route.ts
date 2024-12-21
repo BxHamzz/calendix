@@ -4,13 +4,18 @@ import {session} from "@/libs/session";
 import {EventTypeModel} from "@/models/EventType";
 import { revalidatePath } from "next/cache";
 
+function uriFromTitle(title: string): string {
+    return title.toLowerCase().replaceAll(/[^a-z0-9]/g, '-');
+}
 
 export async function POST(req: NextRequest) {
     await mongoose.connect(process.env.MONGODB_URI as string);
     const data = await req.json();
+    data.uri = uriFromTitle(data.title);
     const email = await session().get('email');
     if (email) {
       const eventTypeDoc = await EventTypeModel.create({email, ...data});
+      revalidatePath('/dashboard/event-types');
       return Response.json(eventTypeDoc);
     }
     return Response.json(false);
@@ -19,6 +24,7 @@ export async function POST(req: NextRequest) {
   export async function PUT(req: NextRequest) {
     await mongoose.connect(process.env.MONGODB_URI as string);
     const data = await req.json();
+    data.uri = uriFromTitle(data.title);
     const email = await session().get('email');
     const id = data.id;
     if (email && id) {
