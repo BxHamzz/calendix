@@ -1,4 +1,5 @@
 
+import { BookingTimes, FromTo, WeekdayName } from '@/libs/types';
 import mongoose, {Model} from 'mongoose';
 
 const FromToSchema = new mongoose.Schema({
@@ -6,21 +7,14 @@ const FromToSchema = new mongoose.Schema({
   to: String,
 });
 
-type FromTo = {
-    from: string;
-    to: string;
-};
 
-type WeekdayName = 'monday' | 'tuesday'
-  | 'wednesday' | 'thursday' | 'friday' 
-  | 'saturday'  | 'sunday';
 
 type EventType = {
   email: string;
   title: string;
   description: string;
   length: number;
-  bookingTimes: Record<WeekdayName, FromTo>;
+  bookingTimes: BookingTimes;
   
 }
 

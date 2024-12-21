@@ -5,7 +5,10 @@ export default function NewEventTypePage() {
   return (
    <div>
     <DashboardNav />
-    <EventTypeForm />
+    <div className="mt-4">
+      <EventTypeForm />
+    </div>
+    
    </div>
   );
 }
