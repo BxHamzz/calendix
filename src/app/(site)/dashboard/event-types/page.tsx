@@ -12,12 +12,18 @@ export default async function EventTypesPage() {
   const eventTypes = await EventTypeModel.find({email});
   return (
     <div>
+      <div>
         <DashboardNav />
-        
-        hello from event types
-
-        {JSON.stringify(eventTypes)}
-        <br/>
+      <div className="mt-4 border border-b-0 rounded-xl overflow-hidden mb-4">
+        {eventTypes.map(et => (
+          <Link
+            className="block p-2 border-b"
+            href={'/dashboard/event-types/edit/'+et.id}>
+            {et.title}
+            </Link>
+        ))}
+      </div>
+        </div>
       <Link className="btn-gray"
             href="/dashboard/event-types/new">
         <Plus size={16} />

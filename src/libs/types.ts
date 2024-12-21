@@ -1,6 +1,7 @@
 export type FromTo = {
     from: string;
     to: string;
+    active: boolean;
   };
   
   export type WeekdayName = 'monday' | 'tuesday'
@@ -13,5 +14,6 @@ export type FromTo = {
     [key in WeekdayName]?: {
       from: string;
       to: string;
+      active?: boolean;
     };
   };
