@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { NextRequest } from "next/server";
 import {session} from "@/libs/session";
 import {EventTypeModel} from "@/models/EventType";
+import { revalidatePath } from "next/cache";
 
 
 export async function POST(req: NextRequest) {
@@ -25,8 +26,16 @@ export async function POST(req: NextRequest) {
         {email, _id: id},
         data,
       );
-      //revalidatePath('/dashboard/event-types');
+      revalidatePath('/dashboard/event-types');
       return Response.json(eventTypeDoc);
     }
     return Response.json(false);
+  }
+
+  export async function DELETE(req: NextRequest) {
+    const url = new URL(req.url);
+    const id = url.searchParams.get('id');
+    await mongoose.connect(process.env.MONGODB_URI as string);
+    await EventTypeModel.deleteOne({_id: id});
+    return Response.json(true);
   }

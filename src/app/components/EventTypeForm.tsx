@@ -4,8 +4,10 @@ import { BookingTimes, WeekdayName } from "@/libs/types";
 import { IEventType } from "@/models/EventType";
 import axios from "axios";
 import clsx from "clsx";
+import { Trash } from "lucide-react";
 import { redirect, useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import EvenTypeDelete from "./EventTypeDelete";
 
 const weekdaysNames:WeekdayName[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
@@ -119,7 +121,11 @@ export default function EventTypeForm({doc}:{doc?:IEventType}) {
                   </div>      
                 </div>
             </div>
-            <div className="flex justify-center">
+            <div className="flex gap-4 justify-center">
+                {doc && ( 
+                  <EvenTypeDelete id={doc._id as string} />
+                )}
+                
                 <button type="submit" className="btn-blue !px-8">
                     Save
                 </button>
