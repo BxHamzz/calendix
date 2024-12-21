@@ -11,6 +11,8 @@ export default async function EditEventTypePage({params}: PageProps) {
   const eventTypeDoc = await EventTypeModel.findOne({_id: params.id});
   
   return (
-    <div>hello from edit page: {eventTypeDoc?.title}</div>
+    <div>
+      <EventTypeForm doc={JSON.parse(JSON.stringify(eventTypeDoc))} />
+    </div>
   );
 }

@@ -14,3 +14,19 @@ export async function POST(req: NextRequest) {
     }
     return Response.json(false);
   }
+
+  export async function PUT(req: NextRequest) {
+    await mongoose.connect(process.env.MONGODB_URI as string);
+    const data = await req.json();
+    const email = await session().get('email');
+    const id = data.id;
+    if (email && id) {
+      const eventTypeDoc = await EventTypeModel.updateOne(
+        {email, _id: id},
+        data,
+      );
+      //revalidatePath('/dashboard/event-types');
+      return Response.json(eventTypeDoc);
+    }
+    return Response.json(false);
+  }

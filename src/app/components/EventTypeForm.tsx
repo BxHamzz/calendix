@@ -1,26 +1,30 @@
 'use client';
 import TimeSelect from "@/app/components/TimeSelect";
 import { BookingTimes, WeekdayName } from "@/libs/types";
+import { IEventType } from "@/models/EventType";
 import axios from "axios";
 import clsx from "clsx";
 import { redirect, useRouter } from "next/navigation";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
 const weekdaysNames:WeekdayName[] = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
 
-export default function EventTypeForm() {
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [length, setLength] = useState(30);
-    const [bookingTimes, setBookingTimes] = useState<BookingTimes>({});
+export default function EventTypeForm({doc}:{doc?:IEventType}) {
+    const [title, setTitle] = useState(doc?.title || '');
+    const [description, setDescription] = useState(doc?.description || '');
+    const [length, setLength] = useState(doc?.length || 30);
+    const [bookingTimes, setBookingTimes] = useState<BookingTimes>(doc?.bookingTimes || {});
     const router = useRouter();
-    async function handleSubmit(ev: { preventDefault: () => void; }) {
+    async function handleSubmit(ev:FormEvent) {
         ev.preventDefault();
-        const response =await axios.post('/api/event-types', {
-           title, description, length, bookingTimes
-        });
+        const id = doc?._id;
+        const request = id ? axios.put : axios.post;
+        const data = {title, description, length, bookingTimes};
+        const response =await request ('/api/event-types', {...data, id});
+           
         if (response.data){
             router.push('/dashboard/event-types');
+            router.refresh();
         }
     }
     function handleBookingTimeChange(
