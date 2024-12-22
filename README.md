@@ -36,33 +36,13 @@ Calendix is built using **Next.js** with support for both client-side and server
 - **MongoDB**: Database for persistent storage.
 - **Mongoose**: ODM library for MongoDB integration.
 
-### **Dependencies**
-- **Nylas API**: For user authentication.
-- **axios**: For making HTTP requests.
-- **dotenv**: For managing environment variables securely.
-
----
-
 ## **Installation**
 
 Follow these steps to set up and run the Calendix application locally.
 
-### **1. Clone the Repository**
-```bash
-git clone <repository-url>
-cd calendix
-  "next-app-session": "^1.0.7",
-  "nylas": "^7.7.2",
-  "react": "^19.0.0",
-  "react-dom": "^19.0.0"
-}
+### **Dependencies**
 
-### **2. Install Dependencies**
-Ensure you have **Bun** installed. If not, install it from [Bun's official website](https://bun.sh/).
-
-## **Dependencies**
-
-The following dependencies are used in the Calendix project:
+- The following dependencies are used in the Calendix project:
 
 - **axios**: `^1.7.9` - For making HTTP requests.
 - **clsx**: `^2.1.1` - Utility for managing conditional class names.
@@ -76,24 +56,10 @@ The following dependencies are used in the Calendix project:
 - **react**: `^19.0.0` - Core library for building user interfaces.
 - **react-dom**: `^19.0.0` - React library for DOM rendering.
 
-Run:
-```bash
-bun install
+---
 
-### **Environment Variables**
-Create a `.env` file in the root directory and add the following:
-
-```env
-MONGODB_URI=<your-mongodb-uri>
-NYLAS_CLIENT_ID=<your-nylas-client-id>
-NYLAS_CLIENT_SECRET=<your-nylas-client-secret>
-NYLAS_CALLBACK_URL=http://localhost:3000/api/auth/callback
-
-Replace the placeholders with your actual credentials:
-
-<your-mongodb-uri>: Your MongoDB connection string.
-<your-nylas-client-id>: Your Nylas Client ID.
-<your-nylas-client-secret>: Your Nylas Client Secret.
+### **2. Install Dependencies**
+Ensure you have **Bun** installed. If not, install it from [Bun's official website](https://bun.sh/).
 
 ## **How It Works**
 
@@ -144,4 +110,18 @@ Replace the placeholders with your actual credentials:
   - Manages CRUD operations for event types and bookings.
 - **Database Integration**:
   - Uses **Mongoose** for managing **MongoDB** collections.
+
+
+## **Installation**
+
+Follow these steps to set up and run the Calendix application locally.
+
+### **1. Clone the Repository**
+```bash
+git clone <repository-url>
+cd calendix
+
+
+
+
 
