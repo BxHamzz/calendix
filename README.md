@@ -120,6 +120,8 @@ Follow these steps to set up and run the Calendix application locally.
 ```bash
 git clone <repository-url>
 cd calendix
+bun dev 
+
 
 
 
