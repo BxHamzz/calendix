@@ -1,50 +1,17 @@
-'use client'
 import DashboardNav from "@/app/components/DashboardNav";
-import {FormEvent, useState} from "react";
-import axios from "axios";
+import ProfileForm from "@/app/components/ProfileForm";
+import {session} from "@/libs/session";
+import {ProfileModel} from "@/models/Profile";
+import mongoose from "mongoose";
 
-export default function DashboardPage() {
-    const [username, setUsername] = useState('');
-    const [isSaved, setIsSaved] = useState(false);
-    const [isError, setIsError] = useState(false);
-    async function handleSubmit(ev: FormEvent) {
-        ev.preventDefault();
-        setIsSaved(false);
-        setIsError(false);
-        const response = await axios.put('/api/profile', {username});
-        if(response.data) {
-            setIsSaved(true);
-        } else {
-            setIsError(true);
-        }
-    }
-    return(
-      <div>
-       <DashboardNav />
-       <form 
-          onSubmit={handleSubmit}
-          className="max-w-xs mx-auto mt-8">
-            {isSaved && (
-                <p>Settings saved!</p>
-            )}
-            {isError && (
-                <p>Error</p>
-            )}
-          <label>
-            <span>Username</span>
-            <input 
-              type="text" value={username}
-              onChange={ev => setUsername(ev.target.value)}
-            />
-            <div className="text-center mt-4">
-                <button type="submit" className="btn-blue !px-8">
-                    Save
-                </button>
-            </div>
-          </label>
-       </form>
-
-
-      </div>
+export default async function DashboardPage() {
+    const email = await session().get('email');
+    await mongoose.connect(process.env.MONGODB_URI as string);
+    const profileDoc = await ProfileModel.findOne({email});
+    return (
+       <div>
+        <DashboardNav />
+        <ProfileForm existingUsername={profileDoc.username || ' '} />
+       </div>
     );
 }
